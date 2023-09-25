@@ -1,0 +1,99 @@
+<script type="text/javascript">
+  RED.nodes.registerType('newNode', {
+    category: 'Test',
+    color: '#ffaaaa',
+    defaults: {
+      name: { value: "" },
+      bits: {
+        value: []
+      },
+      selfdefPrefixText: { value: "" },
+      year: { value: "", required: true },
+      month: { value: "", required: true },
+      date: { value: "", required: true },
+      hours: { value: "", required: true },
+      minutes: { value: "", required: true },
+      seconds: { value: "", required: true },
+      digits: { value: "", required: true },
+
+    },
+    oneditsave: Save,
+    oneditprepare: Restore,
+    inputs: 1,
+    outputs: 1,
+    icon: "file.png",
+    label: function () {
+      return this.name || "newNode";
+    }
+
+  });
+  function Save() {
+    const NumCheckBoxes = 3;
+    this.bits = [];
+    for (let i = 0; i < NumCheckBoxes; i++) {
+      this.bits.push($(`#CheckBoxIndex_${i}`).is(":checked"));
+    }
+  }
+
+  function Restore() {
+    for (let i = 0; i < this.bits.length; i++) {
+      $(`#CheckBoxIndex_${i}`).prop('checked', this.bits[i]);
+    }
+  }
+</script>
+<script type="text/html" data-template-name="newNode">
+  <div class="form-row">
+      <label for="CheckBoxIndex_0">DatePrefix</label>
+      <label>
+      <input type="checkbox" id="CheckBoxIndex_0" checked>
+      Yes</label>
+  </div>
+  <div class="form-row">
+      <label for="CheckBoxIndex_1">DateFormat(long)</label>
+      <label>
+      <input type="checkbox" id="CheckBoxIndex_1" checked>
+      短
+      </label>
+  </div>
+  <div class="form-row">
+      <label for="CheckBoxIndex_2">selfdefPrefix</label>
+      <label>
+      <input type="checkbox" id="CheckBoxIndex_2" checked>
+      Yes</label>
+  </div>
+  <div class="form-row">
+      <label for="node-input-selfdefPrefixText">selfdefPrefixText</label>
+      <input type="text" id="node-input-selfdefPrefixText">
+  </div>
+  <div class="form-row">
+      <label for="node-input-year"><i class="icon-tag"></i> Year</label>
+      <input type="text" id="node-input-year" placeholder="Year" maxlength="2">
+  </div>
+  <div class="form-row">
+      <label for="node-input-month"><i class="icon-tag"></i> Month</label>
+      <input type="text" id="node-input-month" placeholder="Month" maxlength="2">
+  </div>
+  <div class="form-row">
+    <label for="node-input-date"><i class="icon-tag"></i> Date</label>
+    <input type="text" id="node-input-date" placeholder="Date" maxlength="2">
+  </div>
+  <div class="form-row">
+    <label for="node-input-hours"><i class="icon-tag"></i> Hours</label>
+    <input type="text" id="node-input-hours" placeholder="Hours" maxlength="2">
+  </div>
+  <div class="form-row">
+    <label for="node-input-minutes"><i class="icon-tag"></i> Minutes</label>
+    <input type="text" id="node-input-minutes" placeholder="Minutes" maxlength="2">
+  </div>
+  <div class="form-row">
+    <label for="node-input-seconds"><i class="icon-tag"></i> Seconds</label>
+    <input type="text" id="node-input-seconds" placeholder="Seconds" maxlength="2">
+  </div>
+  <div class="form-row">
+    <label for="node-input-digits"><i class="icon-tag"></i> Digits</label>
+    <input type="text" id="node-input-digits" placeholder="Digits(1~9)" maxlength="1">
+  </div>
+</script>
+<script type="text/html" data-help-name="newNode">
+  <p>test Nodes</p>
+</script>
